@@ -6,6 +6,8 @@ maintainer: seanhess@gmail.com
 copyright: Orbital Labs
 license: BSD3
 github: orbital/wai-middleware-json-errors
+synopsis: Converts errors from plaintext to json
+description: Converts errors from plaintext to json
 extra-source-files:
 - README.md
 
