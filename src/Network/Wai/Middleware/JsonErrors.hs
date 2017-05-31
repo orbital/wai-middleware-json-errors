@@ -1,9 +1,7 @@
 {-# LANGUAGE TupleSections #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE OverloadedStrings #-}
-module Network.Wai.Middleware.JsonErrors
-  ( jsonErrors
-  ) where
+module Network.Wai.Middleware.JsonErrors where
 
 import Data.Aeson (Value(..), object, (.=), encode)
 import Data.Text.Encoding (decodeUtf8)
@@ -15,6 +13,19 @@ import Network.HTTP.Types.Status (Status(statusCode))
 import Network.HTTP.Types.Header (ResponseHeaders)
 import Network.Wai (Application, Response, modifyResponse, responseStatus, responseHeaders, responseBuilder)
 import Network.Wai.Internal (Response(..))
+
+
+-- | Converts errors from plaintext to json.
+--
+-- Example: a plaintext json parsing error returns a 400 status code and a message:
+-- > Error in $: key \"firstName\" not present
+--
+-- Using this middleware it would look like this:
+-- > {
+-- >   "status": 400,
+-- >   "error": "Error in $: key \"firstName\" not present"
+-- > }
+
 
 jsonErrors :: Application -> Application
 jsonErrors = modifyResponse responseModifier
